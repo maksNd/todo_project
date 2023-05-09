@@ -47,3 +47,4 @@ jobs:
           script: |
             cd todo_project
             echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up -d
+            
