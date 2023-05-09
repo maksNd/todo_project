@@ -46,5 +46,4 @@ jobs:
           password: ${{ secrets.REMOTE_SERVER_USER_PASSWORD }}
           script: |
             cd todo_project
-            echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up -d
-            
+            echo ${{ secrets.REMOTE_SERVER_USER_PASSWORD }} | sudo -S docker-compose up -d
