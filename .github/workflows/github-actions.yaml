@@ -8,7 +8,7 @@ jobs:
       - name: clone code
         uses: actions/checkout@v2 # копирование кода на платформу GitHub
       - name: building
-        run: docker build -t maksnd/todo_project:$GITHUB_RUN_ID # сборка образа
+        run: docker build -t maksnd/todo_project:$GITHUB_RUN_ID . # сборка образа
       - name: docker login
         run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
       - name: docker push # отправляем сборку в docker hub
