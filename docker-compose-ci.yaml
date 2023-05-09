@@ -39,7 +39,7 @@ services:
     volumes:
       - ./core:/opt/core
       - ./todolist:/opt/todolist
-  #      - django_static:/opt/static
+      - django_static:/opt/static
   #    healthcheck:
   #      test: [ "CMD", "curl", "-f", "http://localhost:80/" ]
   #      interval: 5s
