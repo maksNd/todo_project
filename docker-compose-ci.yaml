@@ -86,6 +86,6 @@ services:
     command: >
       sh -c "python ./manage.py migrate"
 
-#volumes:
-#  django_static:
+volumes:
+  django_static:
 
