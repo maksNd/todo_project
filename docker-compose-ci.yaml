@@ -22,8 +22,12 @@ services:
   api:
 #    build: .
     image: maksnd/todo_project:$GITHUB_RUN_ID
-    env_file: .env
+#    env_file: .env
     environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      PORT: 5432
       DB_HOST: db
     depends_on:
       db:
