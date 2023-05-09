@@ -13,3 +13,38 @@ jobs:
         run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
       - name: docker push # отправляем сборку в docker hub
         run: docker push maksnd/todo_project:$GITHUB_RUN_ID
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build_and_push
+    env:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+    steps:
+      - name: clone code
+        uses: actions/checkout@v2
+      - name: render docker-compose # создадим папку deploy и docker-compose.yaml
+        run: |
+          mkdir deploy
+          cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
+      - name: copy docker-compose.yaml to server
+        uses: appleboy/scp-action@master # с помощью готового модуля
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USERNAME }}
+            password: ${{ secrets.PASSWORD }}
+            source: "deploy/docker-compose.yaml"
+            target: "todo_project"
+            strip_components: 1 # уберет один слэш
+      -name: deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_SERVER_USER }}
+          password: ${{ secrets.REMOTE_SERVER_USER_PASSWORD }}
+          script: |
+            cd todo_project
+            echo ${{ secrets.PASSWORD }} | sudo -S docker-compose up -d
+
+
