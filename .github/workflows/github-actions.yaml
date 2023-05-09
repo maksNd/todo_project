@@ -13,7 +13,6 @@ jobs:
         run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
       - name: docker push # отправляем сборку в docker hub
         run: docker push maksnd/todo_project:$GITHUB_RUN_ID
-
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push
