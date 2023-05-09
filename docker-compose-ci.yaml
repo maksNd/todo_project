@@ -63,9 +63,7 @@ services:
   #      retries: 3
 
   migrations:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: maksnd/todo_project:$GITHUB_RUN_ID
     depends_on:
 #      frontend:
 #        condition: service_healthy
