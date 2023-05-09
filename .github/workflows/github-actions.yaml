@@ -27,14 +27,14 @@ jobs:
         uses: actions/checkout@v2
       - name: render docker-compose
         run: |
-          mkdir deploy_app
+          mkdir todo_app
           cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
       - name: copy docker-compose.yaml to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          username: ${{ secrets.REMOTE_SERVER_USER }}
+          password: ${{ secrets.REMOTE_SERVER_USER_PASSWORD }}
           source: deploy/docker-compose.yaml
           target: todo_project
           strip_components: 1
