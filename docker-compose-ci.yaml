@@ -7,9 +7,9 @@ services:
     #    env_file:
     #      - .env
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_DB: postgres
 
     ports:
       - "5432:5432"
@@ -71,9 +71,13 @@ services:
 #        condition: service_healthy
       db:
         condition: service_healthy
-    env_file:
-      - .env
+#    env_file:
+#      - .env
     environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      PORT: 5432
       DB_HOST: db
     healthcheck:
       test: [ "CMD", "sh", "-c", "python ./manage.py migrate --list | grep -q 'No migrations to apply'; if [ $$? -eq 0 ]; then exit 1; else exit 0; fi" ]
