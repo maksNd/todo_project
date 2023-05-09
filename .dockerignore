@@ -1,8 +1,8 @@
 **
 
 !core
+!deploy
+!static
 !todolist
 !manage.py
 !requirements.txt
-!static
-!deploy
