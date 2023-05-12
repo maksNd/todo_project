@@ -43,15 +43,15 @@ jobs:
           target: todo_project
           strip_components: 1
 
-#      - name: copy nginx.conf to server
-#        uses: appleboy/scp-action@master
-#        with:
-#          host: ${{ secrets.REMOTE_HOST }}
-#          username: ${{ secrets.REMOTE_SERVER_USER }}
-#          password: ${{ secrets.REMOTE_SERVER_USER_PASSWORD }}
-#          source: deploy/nginx.conf
-#          target: todo_project
-#          strip_components: 1
+      - name: copy nginx.conf to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_SERVER_USER }}
+          password: ${{ secrets.REMOTE_SERVER_USER_PASSWORD }}
+          source: deploy/nginx.conf
+          target: todo_project
+          strip_components: 1
 
       - name: deploy
         uses: appleboy/ssh-action@master
