@@ -4,8 +4,6 @@ services:
   db:
     image: postgres:15.1-alpine
     restart: always
-    #    env_file:
-    #      - .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -27,19 +25,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    #      migrations:
-    #        condition: service_completed_successfully
     ports:
       - "8000:8000"
     volumes:
       - ./core:/opt/core
       - ./todolist:/opt/todolist
-  #      - django_static:/opt/static
-  #    healthcheck:
-  #      test: [ "CMD", "curl", "-f", "http://localhost:80/" ]
-  #      interval: 5s
-  #      timeout: 10s
-  #      retries: 3
 
   frontend:
     image: sermalenk/skypro-front:lesson-34
@@ -51,19 +41,12 @@ services:
     volumes:
       - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./static:/usr/share/nginx/html/static
-  #    healthcheck:
-  #      test: [ "CMD", "curl", "-f", "http://localhost:80/" ]
-  #      interval: 5s
-  #      timeout: 10s
-  #      retries: 3
 
   migrations:
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
-#      frontend:
-#        condition: service_healthy
       db:
         condition: service_healthy
     env_file:
@@ -77,7 +60,3 @@ services:
       retries: 3
     command: >
       sh -c "python ./manage.py migrate"
-
-#volumes:
-#  django_static:
-

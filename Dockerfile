@@ -6,7 +6,6 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-#ENTRYPOINT ["bash", "makemigrations.sh"]
 
 EXPOSE 8000
 
