@@ -21,7 +21,7 @@ services:
 
   api:
 #    build: .
-    image: maksnd/todo_project:$GITHUB_RUN_ID
+    image: maksnd/todo_project:$GITHUB_REF_NAME-$GITHUB_RUN_ID
 #    env_file: .env
     environment:
       POSTGRES_DB: postgres
