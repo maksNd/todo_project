@@ -64,7 +64,7 @@ services:
   #      retries: 3
 
   migrations:
-    image: maksnd/todo_project:$GITHUB_RUN_ID
+    image: maksnd/todo_project:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     depends_on:
       db:
         condition: service_healthy
